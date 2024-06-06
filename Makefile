@@ -1,14 +1,14 @@
 CC=c99
-CFLAGS=-I./src -O3
+CFLAGS=-I./src -I./examples -I./examples/../src -O3
 
 SRC := src
 OBJ := obj
 BIN := bin
-TST := tests
+TST := test
 
 dir_guard=@mkdir -p $(@D)
 
-_OBJECTS := compile.o hash.o sr.o fst.o symt.o sort.o queue.o bitset.o print.o draw.o compose.o shortest.o match.o heap.o iter.o test.o trim.o
+_OBJECTS := compile.o hash.o sr.o fst.o symt.o sort.o queue.o bitset.o print.o draw.o compose.o shortest.o match.o heap.o iter.o trim.o
 OBJECTS := $(patsubst %, $(OBJ)/%, $(_OBJECTS))
 
 TESTS := test_fst test_queue test_bitset test_print test_iter test_io test_compile test_sort test_hash test_stack test_trim test_compose test_heap test_shortest test_symt
@@ -24,7 +24,7 @@ $(OBJ)/%.o: $(SRC)/%.c
 
 $(TESTS): $(OBJECTS) 
 	@mkdir -p $(TST)
-	$(CC) $^ -o $(TST)/$@ $(SRC)/$@.c
+	$(CC) $^ -o $(TST)/$@ $(TST)/$@.c
 
 tests: $(TESTS)
 	echo -e "one 1\ntwo 2" > $(TST)/test_symt.txt
@@ -32,7 +32,7 @@ tests: $(TESTS)
 
 $(BINARIES): $(OBJECTS) 
 	@mkdir -p $(BIN)
-	$(CC) $^ -o $(BIN)/$@ $(SRC)/$@.c
+	$(CC) $(CFLAGS) $^ -o $(BIN)/$@ ./examples/$@.c
 
 .PHONY: clean
 
