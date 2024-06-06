@@ -38,8 +38,6 @@ $(BINARIES): $(OBJECTS)
 
 clean:
 	@rm -f $(OBJ)/*.o
-	@rm -f $(TST)/test_*
 	@rm -f $(BIN)/fs*
 	@rm -df $(OBJ)
-	@rm -df $(TST)
 	@rm -df $(BIN)
