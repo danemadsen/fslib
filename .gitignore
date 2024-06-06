@@ -19,3 +19,5 @@
 
 # Compiled automata files
 *.t
+
+/bin
